@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "mlops"
+version = "1.0"
+description = "packages management"
+authors = ["tam"]
+
+[tool.poetry.dependencies]
+python = "3.9.6"
+
+[tool.poetry.dev-dependencies]
+apache-airflow = {extras = ["postgres", "amazon", "slack"], version = "^2.1.2"}
+black = "^21.7b0"
+isort = "^5.9.2"
+mypy = "^0.910"
+flake8 = "^3.9.2"
+pep8-naming = "^0.12.0"
+pylint = "^2.9.5"
+pydocstyle = "^6.1.1"
+types-requests = "^2.25.0"
+types-python-dateutil = "^0.1.4"
+pytest = "^6.2.4"
+pytest-cov = "^2.12.1"
+pre-commit = "^2.13.0"
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+multi_line_output = 3
+include_trailing_comma = true
+force_grid_wrap = 0
+use_parentheses = true
+line_length = 88
+
+[tool.mypy]
+ignore_missing_imports = true
+
+[tool.pylint.LOGGING]
+disable = "logging-fstring-interpolation"
+
+[tool.pylint."MESSAGES CONTROL"]
+disable = ["import-error", "wrong-import-order", "ungrouped-imports", "pointless-statement"]
+max-line-length = 120
+
+[build-system]
+requires = ["poetry-core>=1.0.3"]
