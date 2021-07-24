@@ -49,7 +49,7 @@ jobs:
     - name: ⚡ Check out repository code
       uses: actions/checkout@v2
 
-    - name: ♻️ Synchronize Airflow dags and plugins to EC2
+    - name: ♻️ Synchronize Airflow dags and plugins
       run: |
         rsync -av --exclude '*__pycache__*' --delete airflow/dags/ /home/ubuntu/airflow/dags
         rsync -av --exclude '*__pycache__*' --delete airflow/plugins/ /home/ubuntu/airflow/plugins
