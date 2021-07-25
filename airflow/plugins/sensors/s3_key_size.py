@@ -8,6 +8,8 @@ from airflow.exceptions import AirflowException
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.sensors.base import BaseSensorOperator
 
+ERR = "If bucket_name is provided, bucket_key should be relative path from root level, rather than a full s3:// url"
+
 
 class S3KeySensor(BaseSensorOperator):
     """
@@ -80,11 +82,7 @@ class S3KeySensor(BaseSensorOperator):
         else:
             parsed_url = urlparse(self.bucket_key)
             if parsed_url.scheme != "" or parsed_url.netloc != "":
-                raise AirflowException(
-                    "If bucket_name is provided, bucket_key"
-                    + " should be relative path from root"
-                    + " level, rather than a full s3:// url"
-                )
+                raise AirflowException(ERR)
 
         self.log.info("Poking for key : s3://%s/%s", self.bucket_name, self.bucket_key)
         if self.wildcard_match:
