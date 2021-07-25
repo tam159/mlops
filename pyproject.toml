@@ -9,6 +9,9 @@ python = "3.9.6"
 
 [tool.poetry.dev-dependencies]
 apache-airflow = {extras = ["postgres", "amazon", "slack"], version = "^2.1.2"}
+sagemaker = "^2.49.2"
+s3fs = "^2021.7.0"
+scipy = "^1.7.0"
 black = "^21.7b0"
 isort = "^5.9.2"
 mypy = "^0.910"
@@ -39,7 +42,7 @@ ignore_missing_imports = true
 disable = "logging-fstring-interpolation"
 
 [tool.pylint."MESSAGES CONTROL"]
-disable = ["import-error", "wrong-import-order", "ungrouped-imports", "pointless-statement"]
+disable = ["import-error", "wrong-import-order", "ungrouped-imports", "pointless-statement", "invalid-name"]
 max-line-length = 120
 
 [build-system]
