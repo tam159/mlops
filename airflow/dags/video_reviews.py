@@ -112,7 +112,7 @@ default_args = {"start_date": days_ago(2)}
 with DAG(
     dag_id="video-reviews",
     default_args=default_args,
-    schedule_interval=None,
+    schedule_interval="@once",
     concurrency=1,
     max_active_runs=1,
     user_defined_filters={"tojson": lambda s: json.JSONEncoder().encode(s)},
@@ -167,10 +167,5 @@ with DAG(
     )
 
     # set the dependencies between tasks
-    (
-        preprocess_task
-        >> prepare_task
-        >> branching
-        >> [train_model_task, tune_model_task]
-        >> batch_transform_task
-    )
+    preprocess_task >> prepare_task >> branching
+    branching >> [train_model_task, tune_model_task] >> batch_transform_task
