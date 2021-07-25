@@ -126,13 +126,3 @@ def preprocess(
         return "SUCCESS"
     except Exception as error:
         raise error
-
-
-print(
-    preprocess(
-        "s3://mlops-raw-data/video-reviews/amazon_reviews_us_Digital_Video_Download_v1_00.tsv.gz",
-        "mlops-curated-data",
-        "video-reviews/preprocess",
-        "\t",
-    )
-)

@@ -168,13 +168,3 @@ def prepare(
         return "SUCCESS"
     except Exception as e:
         raise e
-
-
-print(
-    prepare(
-        "mlops-curated-data",
-        "video-reviews/preprocess",
-        "mlops-curated-data",
-        "video-reviews/prepare",
-    )
-)
