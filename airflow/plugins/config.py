@@ -17,14 +17,14 @@ config = {
         "s3_out_prefix": "video-reviews/prepare",
     },
     "train_model": {
-        "sagemaker_role": "AirflowEC2Role",
+        "sagemaker_role": "SageMaker-Studio",
         "estimator_config": {
-            "train_instance_count": 1,
-            "train_instance_type": "ml.c5.4xlarge",
-            "train_volume_size": 30,
-            "train_max_run": 3600,
+            "instance_count": 1,
+            "instance_type": "ml.m4.xlarge",
+            "volume_size": 30,
+            "max_run": 3600,
             "output_path": "s3://mlops-model-artifacts/video-reviews/",
-            "base_job_name": "trng-recommender",
+            "base_job_name": "video-reviews-recommender",
             "hyperparameters": {
                 "feature_dim": "178729",
                 "epochs": "10",
@@ -57,7 +57,7 @@ config = {
     "batch_transform": {
         "transform_config": {
             "instance_count": 1,
-            "instance_type": "ml.c4.xlarge",
+            "instance_type": "ml.m4.xlarge",
             "data": "s3://mlops-curated-data/video-reviews/prepare/test/",
             "data_type": "S3Prefix",
             "content_type": "application/x-recordio-protobuf",

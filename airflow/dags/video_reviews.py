@@ -1,13 +1,10 @@
 """Airflow DAG for Amazon video reviews."""
 
-import json
-
 import boto3
 import config as cfg
 import sagemaker
 from airflow.models import DAG
 from airflow.operators.python import BranchPythonOperator, PythonOperator
-from airflow.providers.amazon.aws.hooks.base_aws import AwsBaseHook
 from airflow.providers.amazon.aws.operators.sagemaker_training import (
     SageMakerTrainingOperator,
 )
@@ -19,7 +16,7 @@ from airflow.providers.amazon.aws.operators.sagemaker_tuning import (
 )
 from airflow.utils.dates import days_ago
 from processing import video_reviews_prepare, video_reviews_preprocess
-from sagemaker.amazon.amazon_estimator import get_image_uri
+from sagemaker import image_uris
 from sagemaker.estimator import Estimator
 from sagemaker.tuner import HyperparameterTuner
 from sagemaker.workflow.airflow import (
@@ -65,18 +62,18 @@ def get_sagemaker_role_arn(role_name: str, region_name: str) -> str:
 config = cfg.config
 
 # set configuration for tasks
-hook = AwsBaseHook(aws_conn_id="airflow-sagemaker")
 region = config["job_level"]["region_name"]
-sess = hook.get_session(region_name=region)
-role = get_sagemaker_role_arn(config["train_model"]["sagemaker_role"], sess.region_name)
-container = get_image_uri(sess.region_name, "factorization-machines")
+role = get_sagemaker_role_arn(config["train_model"]["sagemaker_role"], region)
+
+sagemaker_session = sagemaker.Session()
+container = image_uris.retrieve("factorization-machines", region)
 hpo_enabled = is_hpo_enabled()
 
 # create estimator
 fm_estimator = Estimator(
-    image_name=container,
+    image_uri=container,
     role=role,
-    sagemaker_session=sagemaker.session.Session(sess),
+    sagemaker_session=sagemaker_session,
     **config["train_model"]["estimator_config"]
 )
 
@@ -107,7 +104,10 @@ transform_config = transform_config_from_estimator(
 
 # define airflow DAG
 
-default_args = {"start_date": days_ago(2)}
+default_args = {
+    "start_date": days_ago(2),
+    "provide_context": True,
+}
 
 with DAG(
     dag_id="video-reviews",
@@ -115,12 +115,10 @@ with DAG(
     schedule_interval="@once",
     concurrency=1,
     max_active_runs=1,
-    user_defined_filters={"tojson": lambda s: json.JSONEncoder().encode(s)},
 ) as dag:
     # preprocess the data
     preprocess_task = PythonOperator(
         task_id="preprocessing",
-        provide_context=False,
         python_callable=video_reviews_preprocess.preprocess,
         op_kwargs=config["preprocess_data"],
     )
@@ -128,7 +126,6 @@ with DAG(
     # prepare the data for training
     prepare_task = PythonOperator(
         task_id="preparing",
-        provide_context=False,
         python_callable=video_reviews_prepare.prepare,
         op_kwargs=config["prepare_data"],
     )
@@ -142,7 +139,6 @@ with DAG(
     train_model_task = SageMakerTrainingOperator(
         task_id="model_training",
         config=train_config,
-        aws_conn_id="airflow-sagemaker",
         wait_for_completion=True,
         check_interval=30,
     )
@@ -151,7 +147,6 @@ with DAG(
     tune_model_task = SageMakerTuningOperator(
         task_id="model_tuning",
         config=tuner_config,
-        aws_conn_id="airflow-sagemaker",
         wait_for_completion=True,
         check_interval=30,
     )
@@ -160,7 +155,6 @@ with DAG(
     batch_transform_task = SageMakerTransformOperator(
         task_id="predicting",
         config=transform_config,
-        aws_conn_id="airflow-sagemaker",
         wait_for_completion=True,
         check_interval=30,
         trigger_rule="one_success",
