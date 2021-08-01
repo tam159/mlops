@@ -19,7 +19,7 @@ curated_bucket = cfg.curated_bucket
 job_folder = f"{cfg.sagemaker_jobs_dir}/retail_prediction"
 
 sklearn_processor = SKLearnProcessor(
-    base_job_name="retail_preprocess",
+    base_job_name="retail-preprocess",
     framework_version="0.20.0",
     role=role,
     instance_type="ml.m5.large",
