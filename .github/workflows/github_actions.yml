@@ -53,5 +53,6 @@ jobs:
       run: |
         rsync -av --exclude '*__pycache__*' --delete airflow/dags/ /home/ubuntu/airflow/dags
         rsync -av --exclude '*__pycache__*' --delete airflow/plugins/ /home/ubuntu/airflow/plugins
+        rsync -av --exclude '*__pycache__*' --delete sagemaker_jobs/ /home/ubuntu/sagemaker_jobs
 
     - run: echo "🍏 This job's status is ${{ job.status }}."
