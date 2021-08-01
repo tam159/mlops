@@ -1,8 +1,8 @@
 """Airflow DAG for Amazon video reviews."""
 
 import boto3
-import video_config as cfg
 import sagemaker
+import video_config as cfg
 from airflow.models import DAG
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.providers.amazon.aws.operators.sagemaker_training import (
