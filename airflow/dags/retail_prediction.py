@@ -15,8 +15,8 @@ region = boto3.session.Session().region_name
 role = cfg.sagemaker_role
 curated_bucket = cfg.curated_bucket
 
-folder = "retail_prediction"
-code = f"{folder}/preprocessing.py"
+folder = "retails"
+code = f"{folder}/preprocess.py"
 input_path = f"s3://sagemaker-sample-data-{region}/processing/census/census-income.csv"
 output_path = f"{curated_bucket}/census_income/preprocess"
 process_arguments = ["--train_test_split_ratio", "0.2"]
