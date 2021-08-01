@@ -2,7 +2,6 @@
 
 import boto3
 import sagemaker
-import video_config as cfg
 from airflow.models import DAG
 from airflow.operators.python import BranchPythonOperator, PythonOperator
 from airflow.providers.amazon.aws.operators.sagemaker_training import (
@@ -15,6 +14,7 @@ from airflow.providers.amazon.aws.operators.sagemaker_tuning import (
     SageMakerTuningOperator,
 )
 from airflow.utils.dates import days_ago
+from processing import video_reviews_config as cfg
 from processing import video_reviews_prepare, video_reviews_preprocess
 from sagemaker import image_uris
 from sagemaker.estimator import Estimator
