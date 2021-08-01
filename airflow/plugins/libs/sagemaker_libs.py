@@ -2,7 +2,7 @@
 
 from typing import List
 
-import project_config as cfg
+import libs.project_config as cfg
 from sagemaker.processing import ProcessingInput, ProcessingOutput, ScriptProcessor
 
 
