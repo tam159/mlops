@@ -1,15 +1,15 @@
+"""Example of Sagemaker processing entry point."""
+
 import argparse
 import os
 import warnings
 
-import pandas as pd
 import numpy as np
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler, OneHotEncoder, LabelBinarizer, KBinsDiscretizer
-from sklearn.preprocessing import PolynomialFeatures
+import pandas as pd
 from sklearn.compose import make_column_transformer
-
 from sklearn.exceptions import DataConversionWarning
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import KBinsDiscretizer, OneHotEncoder, StandardScaler
 
 warnings.filterwarnings(action="ignore", category=DataConversionWarning)
 
@@ -26,15 +26,6 @@ columns = [
     "income",
 ]
 class_labels = [" - 50000.", " 50000+."]
-
-
-def print_shape(df):
-    negative_examples, positive_examples = np.bincount(df["income"])
-    print(
-        "Data shape: {}, {} positive examples, {} negative examples".format(
-            df.shape, positive_examples, negative_examples
-        )
-    )
 
 
 if __name__ == "__main__":
@@ -71,8 +62,14 @@ if __name__ == "__main__":
             ["age", "num persons worked for employer"],
             KBinsDiscretizer(encode="onehot-dense", n_bins=10),
         ),
-        (["capital gains", "capital losses", "dividends from stocks"], StandardScaler()),
-        (["education", "major industry code", "class of worker"], OneHotEncoder(sparse=False)),
+        (
+            ["capital gains", "capital losses", "dividends from stocks"],
+            StandardScaler(),
+        ),
+        (
+            ["education", "major industry code", "class of worker"],
+            OneHotEncoder(sparse=False),
+        ),
     )
     print("Running preprocessing and feature engineering transformations")
     train_features = preprocess.fit_transform(X_train)
@@ -81,17 +78,27 @@ if __name__ == "__main__":
     print("Train data shape after preprocessing: {}".format(train_features.shape))
     print("Test data shape after preprocessing: {}".format(test_features.shape))
 
-    train_features_output_path = os.path.join("/opt/ml/processing/train", "train_features.csv")
-    train_labels_output_path = os.path.join("/opt/ml/processing/train", "train_labels.csv")
+    train_features_output_path = os.path.join(
+        "/opt/ml/processing/train", "train_features.csv"
+    )
+    train_labels_output_path = os.path.join(
+        "/opt/ml/processing/train", "train_labels.csv"
+    )
 
-    test_features_output_path = os.path.join("/opt/ml/processing/test", "test_features.csv")
+    test_features_output_path = os.path.join(
+        "/opt/ml/processing/test", "test_features.csv"
+    )
     test_labels_output_path = os.path.join("/opt/ml/processing/test", "test_labels.csv")
 
     print("Saving training features to {}".format(train_features_output_path))
-    pd.DataFrame(train_features).to_csv(train_features_output_path, header=False, index=False)
+    pd.DataFrame(train_features).to_csv(
+        train_features_output_path, header=False, index=False
+    )
 
     print("Saving test features to {}".format(test_features_output_path))
-    pd.DataFrame(test_features).to_csv(test_features_output_path, header=False, index=False)
+    pd.DataFrame(test_features).to_csv(
+        test_features_output_path, header=False, index=False
+    )
 
     print("Saving training labels to {}".format(train_labels_output_path))
     y_train.to_csv(train_labels_output_path, header=False, index=False)
