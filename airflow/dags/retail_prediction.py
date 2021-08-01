@@ -37,17 +37,15 @@ preprocess_s3_output = f"{curated_bucket}/census_income/preprocess"
 preprocess_inputs = [
     ProcessingInput(source=preprocess_s3_input, destination=cfg.container_input)
 ]
-preprocess_outputs = (
-    [
-        ProcessingOutput(
-            source=cfg.container_train_output,
-            destination=f"{preprocess_s3_output}/train",
-        ),
-        ProcessingOutput(
-            source=cfg.container_test_output, destination=f"{preprocess_s3_output}/test"
-        ),
-    ],
-)
+preprocess_outputs = [
+    ProcessingOutput(
+        source=cfg.container_train_output,
+        destination=f"{preprocess_s3_output}/train",
+    ),
+    ProcessingOutput(
+        source=cfg.container_test_output, destination=f"{preprocess_s3_output}/test"
+    ),
+]
 
 
 default_args = {
