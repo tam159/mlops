@@ -89,7 +89,7 @@ if __name__ == "__main__":
 
     print("Saving validation data to {}".format(validation_data_output_path))
     pd.DataFrame(validation_data).to_csv(
-        train_data_output_path, header=False, index=False
+        validation_data_output_path, header=False, index=False
     )
 
     print("Saving test data to {}".format(test_data_output_path))
