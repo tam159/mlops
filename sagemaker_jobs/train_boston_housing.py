@@ -6,7 +6,7 @@ from sagemaker.sklearn.estimator import SKLearn
 sess = sagemaker.Session()
 role = "SageMaker-Studio"
 
-tracking_uri = "http://52.76.38.6:5000"
+tracking_uri = "http://10.0.6.196:5000"
 
 train_path = "s3://mlops-curated-data/boston_housing/preprocess/train/"
 test_path = "s3://mlops-curated-data/boston_housing/preprocess/test/"
