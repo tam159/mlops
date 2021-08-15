@@ -10,7 +10,7 @@ This repository contains some examples of MLOps with code
 1. Data pre-processing: handling missing data, outliers, long tails, etc
 2. Feature engineering: running experiments with different features, adding, removing and changing features
 3. Data transformation: standardizing data, converting data format compatible with training algorithms
-4. Model training's parameters, metrics, are logged in MLflow. The model is registered in SageMaker Inference Model
+4. Training's parameters, metrics, are logged in MLflow. The model is registered in SageMaker Inference Model
 5. Batch inference: performing batch transform on test data set
 6. Model evaluation: analyzing model performance based on predicted results on test data
 7. Model deployment: creating a SageMaker Inference Endpoint
