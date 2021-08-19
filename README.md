@@ -8,12 +8,12 @@ This repository contains some examples of MLOps with code
 
 ### Workflow tasks are scheduled by Airflow and experiments are logged in MLflow
 
-0. The business problem is framed as a machine learning problem: what is observed and what should be predicted
+0. The business problem is framed as a machine learning problem: what is observed and what is predicted
 1. Data acquisition: acquiring raw data from data sources including data collection and data integration
 2. Data pre-processing: handling missing data, outliers, long tails, etc
 3. Feature engineering: running experiments with different features, adding, removing and changing features
 4. Data transformation: standardizing data, converting data format compatible with training algorithms
-5. Job training: training's parameters, metrics, are logged in MLflow
+5. Job training: training's parameters, metrics, etc are tracked in the MLflow
 6. Model evaluation: analyzing model performance based on predicted results on test data
 7. If business goals are met, the model will be registered in the SageMaker Inference Models
 8. Getting predictions in any of the following ways
