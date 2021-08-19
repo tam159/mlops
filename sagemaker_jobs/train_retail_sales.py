@@ -5,7 +5,7 @@ from sagemaker.xgboost.estimator import XGBoost
 
 tracking_uri = "http://10.0.6.196:5000"
 role = "SageMaker-Studio"
-script_path = "train.py"
+script_path = "retail_train.py"
 source_dir = "retail_sales"
 
 train_path = "s3://mlops-curated-data/retail_sales/preprocess/train"
