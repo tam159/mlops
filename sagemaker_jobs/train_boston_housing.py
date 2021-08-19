@@ -28,7 +28,7 @@ metric_definitions = [
 ]
 
 estimator = SKLearn(
-    entry_point="train.py",
+    entry_point="boston_train.py",
     source_dir="boston_housing",
     role=role,
     metric_definitions=metric_definitions,

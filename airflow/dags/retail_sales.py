@@ -19,7 +19,7 @@ job_folder = f"{cfg.sagemaker_jobs_dir}/{folder}"
 
 sklearn_processor = SKLearnProcessor(
     base_job_name="retail-sales-preprocess",
-    framework_version="0.20.0",
+    framework_version="0.23-1",
     role=role,
     instance_type="ml.m5.large",
     instance_count=1,
