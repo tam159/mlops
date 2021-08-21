@@ -10,6 +10,7 @@ source_dir = "retail_sales"
 
 train_path = "s3://mlops-curated-data/retail_sales/preprocess/train"
 validation_path = "s3://mlops-curated-data/retail_sales/preprocess/validation"
+test_path = "s3://mlops-curated-data/retail_sales/preprocess/test"
 output_path = "s3://mlops-model-artifacts/retail_sales"
 
 instance_type = "ml.m5.xlarge"
@@ -18,8 +19,8 @@ content_type = "csv"
 hyperparams = {
     "max_depth": 10,
     "eta": 0.1,
-    "objective": "reg:linear",
-    "num_round": 100,
+    "objective": "reg:squarederror",
+    "num_round": 20,
     "colsample_bytree": 0.3,
     "alpha": 10,
     "data_format": content_type,
@@ -44,6 +45,12 @@ xgb_script_mode_estimator = XGBoost(
 
 train_input = TrainingInput(train_path, content_type=content_type)
 validation_input = TrainingInput(validation_path, content_type=content_type)
+test_input = TrainingInput(test_path, content_type=content_type)
 
-data_channels = {"train": train_input, "validation": validation_input}
+data_channels = {
+    "train": train_input,
+    "validation": validation_input,
+    "test": test_input,
+}
+
 xgb_script_mode_estimator.fit(data_channels)

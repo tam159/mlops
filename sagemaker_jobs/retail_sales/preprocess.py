@@ -85,12 +85,12 @@ if __name__ == "__main__":
     test_data_output_path = os.path.join("/opt/ml/processing/test", "test.csv")
 
     print("Saving train data to {}".format(train_data_output_path))
-    pd.DataFrame(train_data).to_csv(train_data_output_path, header=False, index=False)
+    pd.DataFrame(train_data).to_csv(train_data_output_path, header=True, index=False)
 
     print("Saving validation data to {}".format(validation_data_output_path))
     pd.DataFrame(validation_data).to_csv(
-        validation_data_output_path, header=False, index=False
+        validation_data_output_path, header=True, index=False
     )
 
     print("Saving test data to {}".format(test_data_output_path))
-    pd.DataFrame(test_data).to_csv(test_data_output_path, header=False, index=False)
+    pd.DataFrame(test_data).to_csv(test_data_output_path, header=True, index=False)
