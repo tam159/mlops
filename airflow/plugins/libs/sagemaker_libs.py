@@ -1,7 +1,8 @@
 """Sagemaker libraries."""
 
-from typing import List
+from typing import Dict, List
 
+from sagemaker.estimator import EstimatorBase
 from sagemaker.processing import ProcessingInput, ProcessingOutput, ScriptProcessor
 
 
@@ -13,7 +14,7 @@ def run_process_job(
     arguments: List[str],
 ) -> None:
     """
-    Run processing job.
+    Run a SageMaker processing job.
 
     :param processor: processor
     :param code: code path to run the job
@@ -28,3 +29,13 @@ def run_process_job(
         outputs=outputs,
         arguments=arguments,
     )
+
+
+def run_train_job(estimator: EstimatorBase, data_channels: Dict) -> None:
+    """
+    Run a SageMaker training job.
+
+    :param estimator: estimator
+    :param data_channels: data channels including train, validation, test
+    """
+    estimator.fit(data_channels)

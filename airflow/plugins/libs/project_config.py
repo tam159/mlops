@@ -11,3 +11,7 @@ container_input = "/opt/ml/processing/input"
 container_train_output = "/opt/ml/processing/train"
 container_validation_output = "/opt/ml/processing/validation"
 container_test_output = "/opt/ml/processing/test"
+
+tracking_uri = "http://10.0.6.196:5000"
+subnet = ["subnet-ba6a47de"]
+security_group_ids = ["sg-0a551f8a939e69e31"]
