@@ -58,7 +58,7 @@ train_hyperparameter = {
     "max_depth": 10,
     "eta": 0.1,
     "objective": "reg:squarederror",
-    "num_round": 10,
+    "num_round": 100,
     "colsample_bytree": 0.3,
     "alpha": 10,
     "data_format": content_type,
