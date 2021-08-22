@@ -2,7 +2,7 @@
 This repository contains some examples of MLOps with code
 
 ## Machine learning workflow with Airflow, MLflow and SageMaker
-![MLOps Architecture](https://raw.githubusercontent.com/tam159/mlops/main/ml_workflow.png)
+![ML Workflow](https://raw.githubusercontent.com/tam159/mlops/main/images/ml_workflow.png)
 
 #### Airflow and MLflow store their metadata in AWS RDS for PostgreSQL
 
