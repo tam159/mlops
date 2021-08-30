@@ -20,7 +20,7 @@ if __name__ == "__main__":
     parser.add_argument("--objective", type=str, default="reg:linear")
     parser.add_argument("--num_round", type=int)
     parser.add_argument("--colsample_bytree", type=float)
-    parser.add_argument("--alpha", type=int)
+    parser.add_argument("--alpha", type=float)
     parser.add_argument("--data_format", type=str)
 
     # MLflow related parameters
