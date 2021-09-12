@@ -5,11 +5,12 @@ import logging
 import os
 import pickle as pkl
 
-import mlflow
 import numpy as np
 import pandas as pd
 import xgboost as xgb
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
+
+import mlflow
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

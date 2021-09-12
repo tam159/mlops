@@ -12,7 +12,7 @@ from sagemaker.processing import ProcessingInput, ProcessingOutput
 from sagemaker.sklearn.processing import SKLearnProcessor
 from sagemaker.xgboost.estimator import XGBoost
 
-folder = "retail_sales"
+folder = "retail_sales/source_dir"
 content_type = "csv"
 
 source_dir = f"{cfg.sagemaker_jobs_dir}/{folder}"

@@ -1,0 +1,1 @@
+mlflow server --backend-store-uri postgresql://DB_URL --default-artifact-root BUCKET/PREFIX -h 0.0.0.0
