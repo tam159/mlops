@@ -8,6 +8,7 @@ sess = sagemaker.Session()
 role = "SageMaker-Studio"
 
 tracking_uri = "http://52.76.38.6:5000"
+source_dir = "source_dir"
 
 train_path = "s3://mlops-curated-data/boston_housing/preprocess/train/boston_train.csv"
 test_path = "s3://mlops-curated-data/boston_housing/preprocess/test/boston_test.csv"
@@ -26,7 +27,7 @@ metric_definitions = [
 
 estimator = SKLearn(
     entry_point="boston_train.py",
-    source_dir="boston_housing",
+    source_dir=source_dir,
     role=role,
     instance_count=1,
     instance_type="ml.m5.xlarge",
